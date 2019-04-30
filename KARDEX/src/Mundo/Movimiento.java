@@ -16,6 +16,7 @@ public class Movimiento {
 		tipo = t;
 		valorTotal = vtot;
 		valorUnitario = vtot/can;
+		cantidad = can;
 		
 	}
 	

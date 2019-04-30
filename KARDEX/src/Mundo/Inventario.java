@@ -30,86 +30,119 @@ public class Inventario {
 	public boolean entrada(int cant, double valor) {
 
 		if (metodo.equals(Sistema.PP)) {
-			
+
 			cantidad += cant;
-			
+
 			valorTotal += valor;
+
+			valorUnitario = valorTotal / cantidad;
+
+			Movimiento m = new Movimiento(Sistema.COMPRA, valor, cant);
 			
-			valorUnitario = valorTotal/cantidad;
-			
-			Movimiento m = new Movimiento(Sistema.ENTRADA, valor, cant);
-			
+			movimientos.add(m);
+
 			return true;
 
 		} else if (metodo.equals(Sistema.PEPS)) {
 
-			
-			
 			return true;
 		}
 
 		return false;
 
 	}
-	
-	
-    public void devCompra(int c,double v) {
-		
-    	cantidad-=c;
-		double valorSalida = c*valorUnitario;
-		valorTotal -= valorSalida;
-		valorUnitario = valorTotal/ cantidad;
-	
-    	
-		
+
+	public boolean devCompra(int c, int id) {
+
+		if (movimientos.get(id).getCantidad() < c) {
+
+			return false;
+
+		} else {
+
+			movimientos.get(id).setCantidad(movimientos.get(id).getCantidad() - c);
+
+			double vT1 = movimientos.get(id).getValorTotal();
+
+			movimientos.get(id)
+					.setValorTotal(movimientos.get(id).getValorUnitario() * movimientos.get(id).getCantidad());
+
+			double vT2 = movimientos.get(id).getValorTotal();
+
+			double delta = vT1 - vT2;
+
+			cantidad -= c;
+			
+			double valorSalida = delta;
+			
+			valorTotal -= valorSalida;
+			
+			valorUnitario = valorTotal / cantidad;
+
+			return true;
+
+		}
+
 	}
 
-	public void devVenta(int c, double v) {
-		
-		
+	public boolean devVenta(int c, int id) {
 
-		cantidad += c;
-		
-		valorTotal += v;
-		
-		valorUnitario = valorTotal/cantidad;
-		
+		if (movimientos.get(id).getCantidad() < c) {
+			
+			System.out.println(movimientos.get(id).getCantidad() + " " + movimientos.get(id).getValorTotal());
+
+			return false;
+
+		} else {
+
+			movimientos.get(id).setCantidad(movimientos.get(id).getCantidad() + c);
+
+			double vT1 = movimientos.get(id).getValorTotal();
+
+			movimientos.get(id)
+					.setValorTotal(movimientos.get(id).getValorUnitario() * movimientos.get(id).getCantidad());
+
+			double vT2 = movimientos.get(id).getValorTotal();
+
+			double delta = vT2 - vT1;
+
+			cantidad += c;
+
+			valorTotal += delta;
+
+			valorUnitario = valorTotal / cantidad;
+
+			return true;
+
+		}
+
 	}
-	
-	
-	
 
 	public boolean salida(int cant) {
 
 		if (metodo.equals(Sistema.PP)) {
-			if(cant > cantidad) {
+			if (cant > cantidad) {
 				return false;
-			}else {
-				
-				cantidad-=cant;
-				double valorSalida = cant*valorUnitario;
+			} else {
+
+				cantidad -= cant;
+				double valorSalida = cant * valorUnitario;
 				valorTotal -= valorSalida;
-				valorUnitario = valorTotal/ cantidad;
-				
-			    Movimiento m = new Movimiento(Sistema.SALIDA, valorSalida, cant);
-			    movimientos.add(m);
-				
+				valorUnitario = valorTotal / cantidad;
+
+				Movimiento m = new Movimiento(Sistema.VENTA, valorSalida, cant);
+				movimientos.add(m);
+
 				return true;
 			}
-			
-			
-			
 
 		} else if (metodo.equals(Sistema.PEPS)) {
 
-			
 			return true;
 		}
 
 		return false;
 	}
-
-	
 
 	public int getCantidad() {
 		return cantidad;
@@ -150,7 +183,5 @@ public class Inventario {
 	public void setMetodo(String metodo) {
 		this.metodo = metodo;
 	}
-
-	
 
 }

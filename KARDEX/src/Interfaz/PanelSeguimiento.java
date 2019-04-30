@@ -28,9 +28,9 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 	
 	private JComboBox tipoMov;
 	
-	private JLabel lblCantidad, lblValorTotal, lblTipoMovimiento, lblIdMovimiento;
+	private JLabel lblCantidad, lblValorTotal, lblTipoMovimiento, lblIdMovimiento,lblValoresAdicionales;
 	
-	private TextField txtCantidad,txtValorTotal,txtId;
+	private TextField txtCantidad,txtValorTotal,txtId,txtValoresAdicionales;
 	
 	private JButton agregarMov;
 	
@@ -84,6 +84,7 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 		lblValorTotal = new JLabel("  Valor total movimiento:  ");
 		lblTipoMovimiento = new JLabel("  Tipo de movimiento:  ");
 		lblIdMovimiento = new JLabel("  Id movimiento:  ");
+		lblValoresAdicionales = new JLabel("  Valores adicionales:  ");
 		txtCantidad = new TextField();
 		txtCantidad.setForeground(Color.red);
 		txtId = new TextField();
@@ -91,9 +92,11 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 		txtId.setForeground(Color.red);
 		txtValorTotal = new TextField();
 		txtValorTotal.setForeground(Color.red);
+		txtValoresAdicionales = new TextField();	
+		txtValoresAdicionales.setForeground(Color.DARK_GRAY);
 		tipoMov = new JComboBox();
-		tipoMov.addItem(Sistema.ENTRADA);
-		tipoMov.addItem(Sistema.SALIDA);
+		tipoMov.addItem(Sistema.COMPRA);
+		tipoMov.addItem(Sistema.VENTA);
 		tipoMov.addItem(Sistema.DEV_COMPRA);
 		tipoMov.addItem(Sistema.DEV_VENTA);
 		tipoMov.setBackground(Color.white);
@@ -102,30 +105,40 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 		tipoMov.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(tipoMov.getSelectedItem().equals(Sistema.ENTRADA)){
+				if(tipoMov.getSelectedItem().equals(Sistema.COMPRA)){
 					
 					txtId.setText("");
 					txtValorTotal.setEnabled(true);
 					txtId.setEnabled(false);
+					txtId.setText("");
 					
 					
-				}else if(tipoMov.getSelectedItem().equals(Sistema.SALIDA)){
+				}else if(tipoMov.getSelectedItem().equals(Sistema.VENTA)){
 					
 					txtValorTotal.setText("");
 					txtValorTotal.setEnabled(false);
 					
 					txtId.setText("");
 					txtId.setEnabled(false);
+					txtId.setText("");
+					txtValoresAdicionales.setEnabled(false);
+					txtValoresAdicionales.setText("");
 					
 					
 				}else if(tipoMov.getSelectedItem().equals(Sistema.DEV_COMPRA)){
 					
-					txtValorTotal.setEnabled(true);
+					txtValorTotal.setEnabled(false);
+					txtValorTotal.setText("");
 					txtId.setEnabled(true);
+					txtValoresAdicionales.setEnabled(false);
+					txtValoresAdicionales.setText("");
 					
 				}else if(tipoMov.getSelectedItem().equals(Sistema.DEV_VENTA)){
 					
-					txtValorTotal.setEnabled(true);
+					txtValorTotal.setEnabled(false);
+					txtValorTotal.setText("");
+					txtValoresAdicionales.setEnabled(false);
+					txtValoresAdicionales.setText("");
 					txtId.setEnabled(true);
 				}
 			}
@@ -139,11 +152,13 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 		p.setLayout(new BorderLayout());
 		
 		JPanel p1 = new JPanel();
-		p1.setLayout(new GridLayout(4,2));
+		p1.setLayout(new GridLayout(5,2));
 		p1.add(lblCantidad);
 		p1.add(txtCantidad);
 		p1.add(lblValorTotal);
 		p1.add(txtValorTotal);
+		p1.add(lblValoresAdicionales);
+		p1.add(txtValoresAdicionales);
 		p1.add(lblIdMovimiento);
 		p1.add(txtId);
 		p1.add(lblTipoMovimiento);
@@ -169,7 +184,7 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 		try {
 			
 			if(s.equals(AGREGAR)) {
-				if(tipoMov.getSelectedItem().equals(Sistema.ENTRADA)) {
+				if(tipoMov.getSelectedItem().equals(Sistema.COMPRA)) {
 					
 					int c = Integer.parseInt(txtCantidad.getText());
 					double v = Double.parseDouble(txtValorTotal.getText());
@@ -182,7 +197,7 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 						
 					}
 					
-				}else if(tipoMov.getSelectedItem().equals(Sistema.SALIDA)) {
+				}else if(tipoMov.getSelectedItem().equals(Sistema.VENTA)) {
 					int c = Integer.parseInt(txtCantidad.getText());
 					
 					if(c<0) {
@@ -195,12 +210,13 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 				}else if(tipoMov.getSelectedItem().equals(Sistema.DEV_COMPRA)){
 					
 					int c = Integer.parseInt(txtCantidad.getText());
-					double v = Double.parseDouble(txtValorTotal.getText());
-					if(c<0||v<0) {
+//					double v = Double.parseDouble(txtValorTotal.getText());
+					int id = Integer.parseInt(txtId.getText());
+					if(c<0||id<0) {
 						JOptionPane.showMessageDialog(this, "Valores no pueden ser negativos");
 					}else {
 						
-						ventana.devCompra(c, v);
+						ventana.devCompra(c,id);
 						actualizarInventarioActual();
 						
 					}
@@ -208,12 +224,13 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 				}else if(tipoMov.getSelectedItem().equals(Sistema.DEV_VENTA)){
 					
 					int c = Integer.parseInt(txtCantidad.getText());
-					double v = Double.parseDouble(txtValorTotal.getText());
-					if(c<0||v<0) {
+//					double v = Double.parseDouble(txtValorTotal.getText());
+					int id = Integer.parseInt(txtId.getText());
+					if(c<0||id<0) {
 						JOptionPane.showMessageDialog(this, "Valores no pueden ser negativos");
 					}else {
 						
-						ventana.devVenta(c, v);
+						ventana.devVenta(c, id);
 						actualizarInventarioActual();
 						
 					}
@@ -222,6 +239,7 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 			
 		} catch (Exception e2) {
 			JOptionPane.showMessageDialog(this, "Digite valores correctos");
+			e2.printStackTrace();
 		}
 		
 		
@@ -234,6 +252,30 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 		lblValorUniValor.setText("$ "+ventana.getSistema().getInvActual().getValorUnitario()+"");
 		
 		
+	}
+
+
+
+	public JLabel getLblValoresAdicionales() {
+		return lblValoresAdicionales;
+	}
+
+
+
+	public void setLblValoresAdicionales(JLabel lblValoresAdicionales) {
+		this.lblValoresAdicionales = lblValoresAdicionales;
+	}
+
+
+
+	public TextField getTxtValoresAdicionales() {
+		return txtValoresAdicionales;
+	}
+
+
+
+	public void setTxtValoresAdicionales(TextField txtValoresAdicionales) {
+		this.txtValoresAdicionales = txtValoresAdicionales;
 	}
 
 }

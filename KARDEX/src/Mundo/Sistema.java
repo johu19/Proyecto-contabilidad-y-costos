@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class Sistema {
 	
-	public final static String ENTRADA = "Entrada";
+	public final static String COMPRA = "Compra";
 	
-	public final static String SALIDA = "Salida";
+	public final static String VENTA = "Venta";
 	
 	
 	public final static String INICIAL = "Inicial";
@@ -52,15 +52,15 @@ public class Sistema {
 	}
 
 
-	public void devVenta(int c, double v) {
+	public boolean devVenta(int c,int id) {
 		
-		invActual.devVenta(c,v);
+		return invActual.devVenta(c,id);
 	}
 
 
-	public void devCompra(int c, double v) {
+	public boolean devCompra(int c, int id) {
 		
-		invActual.devCompra(c,v);
+		return invActual.devCompra(c,id);
 	}
 
 
