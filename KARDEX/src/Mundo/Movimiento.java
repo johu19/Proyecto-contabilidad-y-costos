@@ -6,17 +6,26 @@ public class Movimiento {
 	
 	private double valorTotal;
 	
+	private double valorTotalSinAdiciones;
+	
+	private double valorAdicional;
+	
 	private double valorUnitario;
 	
 	private int cantidad;
 	
 	
-	public Movimiento(String t, double vtot, int can) {
+	public Movimiento(String t, double vAdic, int can, double vtotS) {
 		
 		tipo = t;
-		valorTotal = vtot;
-		valorUnitario = vtot/can;
+		
 		cantidad = can;
+		valorTotalSinAdiciones = vtotS;
+		
+		valorAdicional = vAdic;
+		
+		valorTotal = vtotS + vAdic;
+		valorUnitario = valorTotal/can;
 		
 	}
 	
@@ -56,6 +65,30 @@ public class Movimiento {
 
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
+	}
+
+
+
+	public double getValorTotalSinAdiciones() {
+		return valorTotalSinAdiciones;
+	}
+
+
+
+	public void setValorTotalSinAdiciones(double valorTotalSinAdiciones) {
+		this.valorTotalSinAdiciones = valorTotalSinAdiciones;
+	}
+
+
+
+	public double getValorAdicional() {
+		return valorAdicional;
+	}
+
+
+
+	public void setValorAdicional(double valorAdicional) {
+		this.valorAdicional = valorAdicional;
 	}
 	
 	

@@ -64,9 +64,9 @@ public class VentanaPrincipal extends JFrame {
 
 	}
 
-	public void entrada(int cant, double val) {
+	public void entrada(int cant, double val,double adic) {
 
-		sistema.entrada(cant, val);
+		sistema.entrada(cant, val,adic);
 
 	}
 

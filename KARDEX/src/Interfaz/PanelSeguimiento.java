@@ -111,6 +111,7 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 					txtValorTotal.setEnabled(true);
 					txtId.setEnabled(false);
 					txtId.setText("");
+					txtValoresAdicionales.setEnabled(true);
 					
 					
 				}else if(tipoMov.getSelectedItem().equals(Sistema.VENTA)){
@@ -188,11 +189,12 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 					
 					int c = Integer.parseInt(txtCantidad.getText());
 					double v = Double.parseDouble(txtValorTotal.getText());
+					double ad = Double.parseDouble(txtValoresAdicionales.getText());
 					if(c<0||v<0) {
 						JOptionPane.showMessageDialog(this, "Valores no pueden ser negativos");
 					}else {
 						
-						ventana.entrada(c, v);
+						ventana.entrada(c, v,ad);
 						actualizarInventarioActual();
 						
 					}

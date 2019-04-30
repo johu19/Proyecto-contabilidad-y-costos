@@ -33,8 +33,8 @@ public class Sistema {
 	}
 	
 
-	public boolean entrada(int c, double v) {
-		return invActual.entrada(c, v);
+	public boolean entrada(int c, double v,double ad) {
+		return invActual.entrada(c, v,ad);
 	}
 	
 	public boolean salida(int c) {

@@ -21,23 +21,23 @@ public class Inventario {
 		valorUnitario = v / c;
 		movimientos = new ArrayList<Movimiento>();
 		if (c > 0 && v > 0) {
-			Movimiento inicial = new Movimiento(Sistema.INICIAL, valorTotal, cantidad);
+			Movimiento inicial = new Movimiento(Sistema.INICIAL,0 , cantidad,valorTotal);
 			movimientos.add(inicial);
 		}
 
 	}
 
-	public boolean entrada(int cant, double valor) {
+	public boolean entrada(int cant, double valor,double vAdic) {
 
 		if (metodo.equals(Sistema.PP)) {
 
 			cantidad += cant;
 
-			valorTotal += valor;
+			valorTotal += (valor+vAdic);
 
 			valorUnitario = valorTotal / cantidad;
 
-			Movimiento m = new Movimiento(Sistema.COMPRA, valor, cant);
+			Movimiento m = new Movimiento(Sistema.COMPRA, vAdic, cant,valor);
 			
 			movimientos.add(m);
 
@@ -60,24 +60,36 @@ public class Inventario {
 
 		} else {
 
+			
+			
+			double valorUniSinA = movimientos.get(id).getValorTotalSinAdiciones() / movimientos.get(id).getCantidad();
+			
+			double cantASacar = c*valorUniSinA;
+			
+			
 			movimientos.get(id).setCantidad(movimientos.get(id).getCantidad() - c);
 
-			double vT1 = movimientos.get(id).getValorTotal();
 
+			
+			
 			movimientos.get(id)
-					.setValorTotal(movimientos.get(id).getValorUnitario() * movimientos.get(id).getCantidad());
+					.setValorTotal(movimientos.get(id).getValorTotal()-cantASacar);
 
-			double vT2 = movimientos.get(id).getValorTotal();
 
-			double delta = vT1 - vT2;
+			movimientos.get(id).setValorTotalSinAdiciones(movimientos.get(id).getValorTotalSinAdiciones()-cantASacar);
+			
+			movimientos.get(id).setValorUnitario(movimientos.get(id).getValorTotal()/movimientos.get(id).getCantidad());
 
 			cantidad -= c;
 			
-			double valorSalida = delta;
+			double valorSalida = cantASacar;
 			
 			valorTotal -= valorSalida;
 			
 			valorUnitario = valorTotal / cantidad;
+			
+			Movimiento m = new Movimiento(Sistema.DEV_COMPRA, 0, c, cantASacar);
+			movimientos.add(m);
 
 			return true;
 
@@ -111,6 +123,11 @@ public class Inventario {
 			valorTotal += delta;
 
 			valorUnitario = valorTotal / cantidad;
+			
+			Movimiento m = new Movimiento(Sistema.DEV_VENTA, 0, c, delta);
+
+
+			movimientos.add(m);
 
 			return true;
 
@@ -130,7 +147,7 @@ public class Inventario {
 				valorTotal -= valorSalida;
 				valorUnitario = valorTotal / cantidad;
 
-				Movimiento m = new Movimiento(Sistema.VENTA, valorSalida, cant);
+				Movimiento m = new Movimiento(Sistema.VENTA, 0, cant,valorSalida);
 				movimientos.add(m);
 
 				return true;
