@@ -3,6 +3,7 @@ package Interfaz;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.ScrollPane;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -42,6 +43,9 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 		
 		ventana = v;
 		
+		//EMPIEZA PANEL INV ACTUAL
+		
+		
 		valoresActuales = new JPanel();
 		
 		valoresActuales.setLayout(new GridLayout(4,2));
@@ -78,6 +82,13 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 		this.add(valoresActuales,BorderLayout.SOUTH);
 		
 		
+		/*
+		ScrollPane scroll = new ScrollPane();
+		scroll.add(valoresActuales);
+		this.add(scroll);
+		*/
+		
+		// TERMINA PANEL INV ACTUAL
 		
 		
 		lblCantidad = new JLabel("  Unidades movimiento:  ");
