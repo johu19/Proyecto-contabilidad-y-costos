@@ -51,8 +51,35 @@ public class Inventario {
 		return false;
 
 	}
+	
+	
+    public void devCompra(int c,double v) {
+		
+    	cantidad-=c;
+		double valorSalida = c*valorUnitario;
+		valorTotal -= valorSalida;
+		valorUnitario = valorTotal/ cantidad;
+	
+    	
+		
+	}
 
-	public boolean salida(int cant, double v) {
+	public void devVenta(int c, double v) {
+		
+		
+
+		cantidad += c;
+		
+		valorTotal += v;
+		
+		valorUnitario = valorTotal/cantidad;
+		
+	}
+	
+	
+	
+
+	public boolean salida(int cant) {
 
 		if (metodo.equals(Sistema.PP)) {
 			if(cant > cantidad) {
@@ -60,7 +87,7 @@ public class Inventario {
 			}else {
 				
 				cantidad-=cant;
-				double valorSalida = v;
+				double valorSalida = cant*valorUnitario;
 				valorTotal -= valorSalida;
 				valorUnitario = valorTotal/ cantidad;
 				
@@ -123,5 +150,7 @@ public class Inventario {
 	public void setMetodo(String metodo) {
 		this.metodo = metodo;
 	}
+
+	
 
 }

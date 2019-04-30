@@ -23,6 +23,8 @@ public class VentanaPrincipal extends JFrame {
 
 	public VentanaPrincipal() {
 		
+		setResizable(false);
+		
 		setBackground(Color.white);
 		
 		setForeground(Color.white);
@@ -68,9 +70,9 @@ public class VentanaPrincipal extends JFrame {
 		
 	}
 	
-	public void salida(int cant,double v) {
+	public void salida(int cant) {
 		
-		if(!sistema.salida(cant,v)) {
+		if(!sistema.salida(cant)) {
 			JOptionPane.showMessageDialog(this, "¡ No puede retirar tantas unidades !");
 		}
 		
@@ -88,6 +90,21 @@ public class VentanaPrincipal extends JFrame {
 
 	public void setSistema(Sistema sistema) {
 		this.sistema = sistema;
+	}
+
+	
+	public void devVenta(int c, double v) {
+		
+	
+		sistema.devVenta(c,v);
+		
+		
+	}
+
+	public void devCompra(int c, double v) {
+		
+		sistema.devCompra(c,v);
+		
 	}
 
 }

@@ -13,10 +13,10 @@ public class Sistema {
 	
 	
 	
-//	public final static String DEV_COMPRA = "Devolucion compra";
+	public final static String DEV_COMPRA = "Devolucion compra";
 	
 	
-//	public final static String DEV_VENTA = "Devolucion venta";
+	public final static String DEV_VENTA = "Devolucion venta";
 	
 	public final static String PEPS ="Metodo PEPS";
 	
@@ -37,8 +37,8 @@ public class Sistema {
 		return invActual.entrada(c, v);
 	}
 	
-	public boolean salida(int c, double v) {
-		return invActual.salida(c,v);
+	public boolean salida(int c) {
+		return invActual.salida(c);
 	}
 	
 	
@@ -49,6 +49,18 @@ public class Sistema {
 
 	public void setInvActual(Inventario invActual) {
 		this.invActual = invActual;
+	}
+
+
+	public void devVenta(int c, double v) {
+		
+		invActual.devVenta(c,v);
+	}
+
+
+	public void devCompra(int c, double v) {
+		
+		invActual.devCompra(c,v);
 	}
 
 
