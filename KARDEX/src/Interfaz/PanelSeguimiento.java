@@ -7,12 +7,10 @@ import java.awt.ScrollPane;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
 import Mundo.Sistema;
@@ -22,46 +20,49 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 	public final static String AGREGAR = "Agregar movimiento";
 	
 	private VentanaPrincipal ventana;
-	
-	private JPanel valoresActuales;
-	
+
 	private JLabel lblCantValor,lblValorTotValor, lblValorUniValor;
-	
 	private JComboBox tipoMov;
-	
+	private JPanel valoresActuales;
 	private JLabel lblCantidad, lblValorTotal, lblTipoMovimiento, lblIdMovimiento,lblValoresAdicionales;
-	
 	private TextField txtCantidad,txtValorTotal,txtId,txtValoresAdicionales;
-	
 	private JButton agregarMov;
+	private JPanel vActualesPanel;
+	private ArrayList<JPanel> valoresActualesList;
+	private JScrollPane scroll;
 	
 	public PanelSeguimiento(VentanaPrincipal v, String can, String vT, String vU, String met) {
 		
 		setBorder(new TitledBorder("Seguimiento: "));
 		setBackground(Color.white);
 		setForeground(Color.white);
-		
+		setSize(350,140);
+
 		ventana = v;
-		
+
+		valoresActualesList = new ArrayList<>();
+		scroll = new JScrollPane();
+		//scroll.setSize(this.getWidth()+3,this.getHeight()+3);
+
 		//EMPIEZA PANEL INV ACTUAL
-		
-		
+
+        //mostrarSaldos(can,vT,vU,met);
+
 		valoresActuales = new JPanel();
-		
+
 		valoresActuales.setLayout(new GridLayout(4,2));
-		
+
 		JLabel lblCant = new JLabel("  Unidades inventario actual:  ");
 		JLabel lblValorTot = new JLabel("  Valor total inventario actual:  ");
 		JLabel lblValorUni = new JLabel("  Valor unitario inventario actual:  ");
 		JLabel lblMetodo = new JLabel("  Método:  ");
-		
-		
+
 		this.lblCantValor = new JLabel(can);
 		this.lblValorTotValor = new JLabel("$ "+ vT.toString());
 		this.lblValorUniValor = new JLabel("$ "+vU);
 		JLabel lblMetodoValor = new JLabel(met);
 		lblMetodoValor.setForeground(Color.blue);
-		
+
 		valoresActuales.add(lblCant);
 		lblCantValor.setForeground(Color.red);
 		valoresActuales.add(lblCantValor);
@@ -73,24 +74,23 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 		valoresActuales.add(lblValorUniValor);
 		valoresActuales.add(lblMetodo);
 		valoresActuales.add(lblMetodoValor);
-		
+
 		valoresActuales.setBorder(new TitledBorder("Inventario actual: "));
-		
+
 		valoresActuales.setBackground(Color.white);
 		valoresActuales.setForeground(Color.white);
-		
-		this.add(valoresActuales,BorderLayout.SOUTH);
-		
-		
-		/*
+
+		this.add(valoresActuales,BorderLayout.CENTER);
+
 		ScrollPane scroll = new ScrollPane();
+		scroll.setSize(this.getWidth()+3,this.getHeight()+3);
 		scroll.add(valoresActuales);
 		this.add(scroll);
-		*/
-		
+
+
 		// TERMINA PANEL INV ACTUAL
-		
-		
+
+
 		lblCantidad = new JLabel("  Unidades movimiento:  ");
 		lblValorTotal = new JLabel("  Valor total movimiento:  ");
 		lblTipoMovimiento = new JLabel("  Tipo de movimiento:  ");
@@ -103,7 +103,7 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 		txtId.setForeground(Color.red);
 		txtValorTotal = new TextField();
 		txtValorTotal.setForeground(Color.red);
-		txtValoresAdicionales = new TextField();	
+		txtValoresAdicionales = new TextField();
 		txtValoresAdicionales.setForeground(Color.DARK_GRAY);
 		tipoMov = new JComboBox();
 		tipoMov.addItem(Sistema.COMPRA);
@@ -112,41 +112,39 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 		tipoMov.addItem(Sistema.DEV_VENTA);
 		tipoMov.setBackground(Color.white);
 		tipoMov.setForeground(Color.blue);
-		
+
 		tipoMov.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(tipoMov.getSelectedItem().equals(Sistema.COMPRA)){
-					
+
 					txtId.setText("");
 					txtValorTotal.setEnabled(true);
 					txtId.setEnabled(false);
 					txtId.setText("");
 					txtValoresAdicionales.setEnabled(true);
-					
-					
+
 				}else if(tipoMov.getSelectedItem().equals(Sistema.VENTA)){
-					
+
 					txtValorTotal.setText("");
 					txtValorTotal.setEnabled(false);
-					
+
 					txtId.setText("");
 					txtId.setEnabled(false);
 					txtId.setText("");
 					txtValoresAdicionales.setEnabled(false);
 					txtValoresAdicionales.setText("");
-					
-					
+
 				}else if(tipoMov.getSelectedItem().equals(Sistema.DEV_COMPRA)){
-					
+
 					txtValorTotal.setEnabled(false);
 					txtValorTotal.setText("");
 					txtId.setEnabled(true);
 					txtValoresAdicionales.setEnabled(false);
 					txtValoresAdicionales.setText("");
-					
+
 				}else if(tipoMov.getSelectedItem().equals(Sistema.DEV_VENTA)){
-					
+
 					txtValorTotal.setEnabled(false);
 					txtValorTotal.setText("");
 					txtValoresAdicionales.setEnabled(false);
@@ -155,14 +153,14 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 				}
 			}
 		});
-		
+
 		agregarMov = new JButton(AGREGAR);
 		agregarMov.addActionListener(this);
 		agregarMov.setActionCommand(AGREGAR);
-		
+
 		JPanel p = new JPanel();
 		p.setLayout(new BorderLayout());
-		
+
 		JPanel p1 = new JPanel();
 		p1.setLayout(new GridLayout(5,2));
 		p1.add(lblCantidad);
@@ -176,18 +174,58 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 		p1.add(lblTipoMovimiento);
 		p1.add(tipoMov);
 		p1.setBackground(Color.white);
-		
+
 		p.add(p1,BorderLayout.CENTER);
 		p.add(agregarMov,BorderLayout.SOUTH);
 		p.setBackground(Color.white);
 		p.setBorder(new TitledBorder("Movimiento: "));
-		
+
 		this.add(p,BorderLayout.CENTER);
-		
-		
 	}
 	
-	
+	public void mostrarSaldos(String can, String vT, String vU, String met){
+
+		/**
+		vActualesPanel = new JPanel();
+
+		vActualesPanel.setLayout(new GridLayout(4,2));
+
+		JLabel lblCant = new JLabel("  Unidades inventario actual:  ");
+		JLabel lblValorTot = new JLabel("  Valor total inventario actual:  ");
+		JLabel lblValorUni = new JLabel("  Valor unitario inventario actual:  ");
+		JLabel lblMetodo = new JLabel("  Método:  ");
+
+		this.lblCantValor = new JLabel(can);
+		this.lblValorTotValor = new JLabel("$ "+ vT.toString());
+		this.lblValorUniValor = new JLabel("$ "+vU);
+		JLabel lblMetodoValor = new JLabel(met);
+		lblMetodoValor.setForeground(Color.blue);
+
+		vActualesPanel.add(lblCant);
+		lblCantValor.setForeground(Color.red);
+		vActualesPanel.add(lblCantValor);
+		vActualesPanel.add(lblValorTot);
+		lblValorTotValor.setForeground(Color.red);
+		vActualesPanel.add(lblValorTotValor);
+		vActualesPanel.add(lblValorUni);
+		lblValorUniValor.setForeground(Color.red);
+		vActualesPanel.add(lblValorUniValor);
+		vActualesPanel.add(lblMetodo);
+		vActualesPanel.add(lblMetodoValor);
+
+		vActualesPanel.setBorder(new TitledBorder("Inventario actual: "));
+
+		vActualesPanel.setBackground(Color.white);
+		vActualesPanel.setForeground(Color.white);
+
+		valoresActualesList.add(vActualesPanel);
+
+		scroll.add(vActualesPanel);
+		this.add(scroll);
+
+		 */
+	}
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

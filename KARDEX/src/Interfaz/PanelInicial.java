@@ -18,16 +18,12 @@ import Mundo.Sistema;
 
 public class PanelInicial extends JPanel implements ActionListener {
 
-	public final static String INICIAR = "Iniciar";
+	public final  static String INICIAR = "Iniciar";
 
 	private VentanaPrincipal ventana;
-
 	private JButton btn;
-
 	private JLabel lblCant, lblValor, lblMetodo;
-
 	private TextField txtValor, txtCant;
-
 	private JComboBox combo;
 
 	public PanelInicial(VentanaPrincipal v) {
@@ -45,7 +41,7 @@ public class PanelInicial extends JPanel implements ActionListener {
 
 		lblCant = new JLabel("  Unidades inventario inicial:  ");
 		lblValor = new JLabel("  Valor ($) total inventario inicial:  ");
-		lblMetodo = new JLabel("  Método:  ");
+		lblMetodo = new JLabel("  M?todo:  ");
 
 		txtValor = new TextField();
 		txtCant = new TextField();
@@ -74,7 +70,6 @@ public class PanelInicial extends JPanel implements ActionListener {
 		add(p1, BorderLayout.CENTER);
 
 		add(btn, BorderLayout.SOUTH);
-
 	}
 
 	@Override
@@ -89,11 +84,12 @@ public class PanelInicial extends JPanel implements ActionListener {
 				int c = Integer.parseInt(txtCant.getText());
 				double v = Double.parseDouble(txtValor.getText());
 				if (c < 0 || v < 0) {
+
 					JOptionPane.showMessageDialog(this, "Valores no pueden ser negativos");
+
 				} else {
 
 					String m = combo.getSelectedItem() + "";
-
 					ventana.iniciar(c, v, m);
 				}
 
