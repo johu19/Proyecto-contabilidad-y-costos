@@ -41,7 +41,7 @@ public class PanelInicial extends JPanel implements ActionListener {
 
 		lblCant = new JLabel("  Unidades inventario inicial:  ");
 		lblValor = new JLabel("  Valor ($) total inventario inicial:  ");
-		lblMetodo = new JLabel("  M?todo:  ");
+		lblMetodo = new JLabel("  Metodo:  ");
 
 		txtValor = new TextField();
 		txtCant = new TextField();

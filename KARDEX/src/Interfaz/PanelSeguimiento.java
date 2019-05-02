@@ -7,12 +7,15 @@ import java.awt.ScrollPane;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
+import Mundo.Movimiento;
 import Mundo.Sistema;
 
 public class PanelSeguimiento extends JPanel implements ActionListener {
@@ -55,10 +58,12 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 		JLabel lblCant = new JLabel("  Unidades inventario actual:  ");
 		JLabel lblValorTot = new JLabel("  Valor total inventario actual:  ");
 		JLabel lblValorUni = new JLabel("  Valor unitario inventario actual:  ");
-		JLabel lblMetodo = new JLabel("  Método:  ");
+		
+		JLabel lblMetodo = new JLabel("  Metodo:  ");
 
 		this.lblCantValor = new JLabel(can);
 		this.lblValorTotValor = new JLabel("$ "+ vT.toString());
+		
 		this.lblValorUniValor = new JLabel("$ "+vU);
 		JLabel lblMetodoValor = new JLabel(met);
 		lblMetodoValor.setForeground(Color.blue);
@@ -112,6 +117,12 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 		tipoMov.addItem(Sistema.DEV_VENTA);
 		tipoMov.setBackground(Color.white);
 		tipoMov.setForeground(Color.blue);
+		
+		
+		if(ventana.getSistema().getInvActual().getMetodo().equals(Sistema.PEPS)) {
+			lblValorUni.setVisible(false);
+			lblValorUniValor.setVisible(false);
+		}
 
 		tipoMov.addActionListener(new ActionListener() {
 			@Override
@@ -298,8 +309,25 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 	}
 
 	private void actualizarInventarioActual() {
+		
+		int i = ventana.getSistema().getInvActual().getMovimientos().size()-1;
+		Movimiento m = ventana.getSistema().getInvActual().getMovimientos().get(i);
+		
+		int vt = (int) m.getValorTotal();
+		int vu = (int)m.getValorUnitario();
+		String t = m.getTipo();
+		String id = i+"";
+		
+		ventana.agregarFila(id,t,vu,vt);
+		
+		
 		lblCantValor.setText(ventana.getSistema().getInvActual().getCantidad()+"");
-		lblValorTotValor.setText("$ "+ventana.getSistema().getInvActual().getValorTotal()+"");
+		
+		int v =(int) ventana.getSistema().getInvActual().getValorTotal();
+		
+		lblValorTotValor.setText("$ "+v+"");
+		
+		
 		lblValorUniValor.setText("$ "+ventana.getSistema().getInvActual().getValorUnitario()+"");
 		
 		
