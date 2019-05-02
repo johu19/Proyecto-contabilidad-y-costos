@@ -9,9 +9,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import Mundo.Movimiento;
 import Mundo.Sistema;
 
 public class VentanaPrincipal extends JFrame {
@@ -38,12 +40,15 @@ public class VentanaPrincipal extends JFrame {
 
 		setTitle("KARDEX");
 		JPanel p = new JPanel();
-		p.setBackground(Color.white);
-		p.setForeground(Color.white);
+		Color c = new Color(240, 229, 70);
+		p.setBackground(c);
+		p.setForeground(c);
 		JLabel lbl = new JLabel();
 		ImageIcon icon = new ImageIcon(RUTA);
 		lbl.setIcon(icon);
+		
 		p.add(lbl);
+		
 
 		setLayout(new BorderLayout());
 
@@ -66,13 +71,14 @@ public class VentanaPrincipal extends JFrame {
 				sistema.getInvActual().getValorUnitario() + "", sistema.getInvActual().getMetodo() + "");
 		add(panelSeguimiento, BorderLayout.CENTER);
 
-		String[] columns = { "ID", "Tipo", "Valor Unitario", "Valor Total" };
+		String[] columns = { "                  ID", "            Tipo", "       Valor Unitario", "      Valor Total" };
 
 		String[][] matriz = {};
-		DefaultTableModel model = new DefaultTableModel(matriz, columns);
+		DefaultTableModel model = new DefaultTableModel(matriz,columns);
 		String[] a = { "0", sistema.getInvActual().getMovimientos().get(0).getTipo() + "",
 				(int) sistema.getInvActual().getMovimientos().get(0).getValorUnitario() + "",
 				(int) sistema.getInvActual().getMovimientos().get(0).getValorTotal() + "" };
+		model.addRow(columns);
 		model.addRow(a);
 		model.setColumnIdentifiers(columns);
 		table = new JTable();
@@ -81,7 +87,7 @@ public class VentanaPrincipal extends JFrame {
 		ScrollPane scroll = new ScrollPane();
 		scroll.add(table);
 		scroll.setSize(500, 100);
-		this.add(scroll, BorderLayout.EAST);
+		this.getContentPane().add(scroll, BorderLayout.EAST);
 
 		pack();
 
@@ -90,6 +96,16 @@ public class VentanaPrincipal extends JFrame {
 	public void entrada(int cant, double val, double adic) {
 
 		sistema.entrada(cant, val, adic);
+		
+		int i = sistema.getInvActual().getMovimientos().size()-1;
+		Movimiento m = sistema.getInvActual().getMovimientos().get(i);
+		
+		int vt = (int) m.getValorTotal();
+		int vu = (int)m.getValorUnitario();
+		String t = m.getTipo();
+		String Id = i+"";
+		
+		agregarFila(Id+"",t,vu,vt);
 
 	}
 
@@ -97,6 +113,17 @@ public class VentanaPrincipal extends JFrame {
 
 		if (!sistema.salida(cant)) {
 			JOptionPane.showMessageDialog(this, "¡ No puede retirar tantas unidades !");
+		}else {
+			
+			int i = sistema.getInvActual().getMovimientos().size()-1;
+			Movimiento m = sistema.getInvActual().getMovimientos().get(i);
+			
+			int vt = (int) m.getValorTotal();
+			int vu = (int)m.getValorUnitario();
+			String t = m.getTipo();
+			String Id = i+"";
+			
+			agregarFila(Id+"",t,vu,vt);
 		}
 
 	}
@@ -128,6 +155,18 @@ public class VentanaPrincipal extends JFrame {
 
 			JOptionPane.showMessageDialog(this, "¡ No puede retirar tantas unidades !");
 
+		}else {
+			
+			int i = sistema.getInvActual().getMovimientos().size()-1;
+			Movimiento m = sistema.getInvActual().getMovimientos().get(i);
+			
+			int vt = (int) m.getValorTotal();
+			int vu = (int)m.getValorUnitario();
+			String t = m.getTipo();
+			String Id = i+"";
+			
+			agregarFila(Id+"",t,vu,vt);
+			
 		}
 
 	}
@@ -145,6 +184,17 @@ public class VentanaPrincipal extends JFrame {
 		} else if (!sistema.devCompra(c, id)) {
 
 			JOptionPane.showMessageDialog(this, "¡ No puede retirar tantas unidades !");
+		}else {
+			
+			int i = sistema.getInvActual().getMovimientos().size()-1;
+			Movimiento m = sistema.getInvActual().getMovimientos().get(i);
+			
+			int vt = (int) m.getValorTotal();
+			int vu = (int)m.getValorUnitario();
+			String t = m.getTipo();
+			String Id = i+"";
+			
+			agregarFila(Id+"",t,vu,vt);
 		}
 
 	}

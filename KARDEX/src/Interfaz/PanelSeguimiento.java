@@ -310,15 +310,15 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 
 	private void actualizarInventarioActual() {
 		
-		int i = ventana.getSistema().getInvActual().getMovimientos().size()-1;
-		Movimiento m = ventana.getSistema().getInvActual().getMovimientos().get(i);
+//		int i = ventana.getSistema().getInvActual().getMovimientos().size()-1;
+//		Movimiento m = ventana.getSistema().getInvActual().getMovimientos().get(i);
+//		
+//		int vt = (int) m.getValorTotal();
+//		int vu = (int)m.getValorUnitario();
+//		String t = m.getTipo();
+//		String id = i+"";
 		
-		int vt = (int) m.getValorTotal();
-		int vu = (int)m.getValorUnitario();
-		String t = m.getTipo();
-		String id = i+"";
-		
-		ventana.agregarFila(id,t,vu,vt);
+//		ventana.agregarFila(id,t,vu,vt);
 		
 		
 		lblCantValor.setText(ventana.getSistema().getInvActual().getCantidad()+"");
