@@ -110,7 +110,7 @@ public class VentanaPrincipal extends JFrame {
 		Movimiento m = sistema.getInvActual().getMovimientos().get(i);
 		
 		int vt = (int) m.getValorTotal();
-		int vu = (int)m.getValorUnitario();
+		double vu = m.getValorUnitario();
 		String t = m.getTipo();
 		String Id = i+"";
 		
@@ -128,7 +128,7 @@ public class VentanaPrincipal extends JFrame {
 			Movimiento m = sistema.getInvActual().getMovimientos().get(i);
 			
 			int vt = (int) m.getValorTotal();
-			int vu = (int)m.getValorUnitario();
+			double vu = m.getValorUnitario();
 			String t = m.getTipo();
 			String Id = i+"";
 			
@@ -170,7 +170,7 @@ public class VentanaPrincipal extends JFrame {
 			Movimiento m = sistema.getInvActual().getMovimientos().get(i);
 			
 			int vt = (int) m.getValorTotal();
-			int vu = (int)m.getValorUnitario();
+			double vu = m.getValorUnitario();
 			String t = m.getTipo();
 			String Id = i+"";
 			
@@ -199,7 +199,7 @@ public class VentanaPrincipal extends JFrame {
 			Movimiento m = sistema.getInvActual().getMovimientos().get(i);
 			
 			int vt = (int) m.getValorTotal();
-			int vu = (int)m.getValorUnitario();
+			double vu = m.getValorUnitario();
 			String t = m.getTipo();
 			String Id = i+"";
 			
@@ -208,9 +208,7 @@ public class VentanaPrincipal extends JFrame {
 
 	}
 	
-	public void h() {
-		
-	}
+	
 
 	public void agregarFila(String fecha, String id, String t, double vu, int vt,int cant) {
 		DefaultTableModel df = (DefaultTableModel) table.getModel();
@@ -230,12 +228,12 @@ public class VentanaPrincipal extends JFrame {
 			DecimalFormat format = new DecimalFormat("#.00");
 			format.format(vu);
 			
-			String[] row = { id,fecha,cant+"", t, "" + vu, "" + vt };
+			String[] row = { id,fecha, t,cant+"", "" + vu, "" + vt };
 			df.addRow(row);
 			table.setModel(df);
 		} catch (Exception e) {
             
-			String[] row = { id,fecha,cant+"", t, "" + vu, "" + vt };
+			String[] row = { id,fecha, t,cant+"", "" + vu, "" + vt };
 			df.addRow(row);
 			table.setModel(df);
 			
