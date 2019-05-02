@@ -207,6 +207,10 @@ public class VentanaPrincipal extends JFrame {
 		}
 
 	}
+	
+	public void h() {
+		
+	}
 
 	public void agregarFila(String fecha, String id, String t, double vu, int vt,int cant) {
 		DefaultTableModel df = (DefaultTableModel) table.getModel();
