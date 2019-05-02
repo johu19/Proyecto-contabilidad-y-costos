@@ -11,13 +11,13 @@ public class Inventario {
 
 	private ArrayList<Movimiento> movimientos;
 
-	public Inventario(int c, double v, String m) {
+	public Inventario(int cantidad, double valorTotal, String m) {
 		setMetodo(m);
-		cantidad = c;
-		valorTotal = v;
-		valorUnitario = v / c;
+		this.cantidad = cantidad;
+		this.valorTotal = valorTotal;
+		valorUnitario = valorTotal / cantidad;
 		movimientos = new ArrayList<Movimiento>();
-		if (c > 0 && v > 0) {
+		if (cantidad > 0 && valorTotal > 0) {
 			Movimiento inicial = new Movimiento(Sistema.INICIAL,0 , cantidad,valorTotal);
 			movimientos.add(inicial);
 		}
@@ -136,8 +136,31 @@ public class Inventario {
 			}
 
 		} else if (metodo.equals(Sistema.PEPS)) {
-
-
+			double valorSalida = 0.0;
+			int aux = cant;
+			boolean stop = false;
+			
+			for(int i = 0; i < movimientos.size() && !stop; i++) {
+				
+				if(movimientos.get(i).getCantidad() > 0 && movimientos.get(i).getTipo().equals(Sistema.COMPRA)) {
+					
+					int diferencia = movimientos.get(i).getCantidad() - cant;
+					if(diferencia >= 0) {
+						valorSalida = cant * movimientos.get(i).getValorUnitario(); 
+						stop = true;
+						movimientos.get(i).setCantidad(diferencia);
+						
+					} else {
+						
+						valorSalida += movimientos.get(i).getValorTotal();
+						movimientos.get(i).setCantidad(0);
+						cant = diferencia;
+					}
+					
+				}
+			}
+			Movimiento m = new Movimiento(Sistema.VENTA, 0, aux, valorSalida);
+			movimientos.add(m);
 
 			return true;
 		}

@@ -1,7 +1,5 @@
 package Mundo;
 
-import java.util.ArrayList;
-
 public class Sistema {
 	
 	public final static String COMPRA = "Compra";

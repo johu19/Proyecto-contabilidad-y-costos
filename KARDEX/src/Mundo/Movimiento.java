@@ -9,14 +9,14 @@ public class Movimiento {
 	private double valorUnitario;
 	private int cantidad;
 	
-	public Movimiento(String t, double vAdic, int can, double vtotS) {
+	public Movimiento(String tipo, double vAdic, int cantidad, double vtotS) {
 		
-		tipo = t;
-		cantidad = can;
+		this.tipo = tipo;
+		this.cantidad = cantidad;
 		valorTotalSinAdiciones = vtotS;
 		valorAdicional = vAdic;
 		valorTotal = vtotS + vAdic;
-		valorUnitario = valorTotal/can;
+		valorUnitario = valorTotal/cantidad;
 	}
 
 	public double getValorUnitario() {
