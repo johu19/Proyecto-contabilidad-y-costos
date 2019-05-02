@@ -2,6 +2,7 @@ package Interfaz;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.ScrollPane;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -77,7 +78,10 @@ public class VentanaPrincipal extends JFrame {
 		table = new JTable();
 		table.setModel(model);
 
-		this.add(table, BorderLayout.EAST);
+		ScrollPane scroll = new ScrollPane();
+		scroll.add(table);
+		scroll.setSize(500, 100);
+		this.add(scroll, BorderLayout.EAST);
 
 		pack();
 
