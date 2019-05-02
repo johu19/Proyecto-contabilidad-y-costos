@@ -11,19 +11,19 @@ public class Inventario {
 
 	private ArrayList<Movimiento> movimientos;
 
-	public Inventario(int cantidad, double valorTotal, String m) {
+	public Inventario(int cantidad, double valorTotal, String m,String f) {
 		setMetodo(m);
 		this.cantidad = cantidad;
 		this.valorTotal = valorTotal;
 		valorUnitario = valorTotal / cantidad;
 		movimientos = new ArrayList<Movimiento>();
 		if (cantidad > 0 && valorTotal > 0) {
-			Movimiento inicial = new Movimiento(Sistema.INICIAL, 0, cantidad, valorTotal);
+			Movimiento inicial = new Movimiento(Sistema.INICIAL, 0, cantidad, valorTotal,f);
 			movimientos.add(inicial);
 		}
 	}
 
-	public boolean entrada(int cant, double valor, double vAdic) {
+	public boolean entrada(int cant, double valor, double vAdic,String f) {
 
 		if (metodo.equals(Sistema.PP)) {
 
@@ -31,7 +31,7 @@ public class Inventario {
 			valorTotal += (valor + vAdic);
 			valorUnitario = valorTotal / cantidad;
 
-			Movimiento m = new Movimiento(Sistema.COMPRA, vAdic, cant, valor);
+			Movimiento m = new Movimiento(Sistema.COMPRA, vAdic, cant, valor,f);
 			movimientos.add(m);
 
 			return true;
@@ -42,7 +42,7 @@ public class Inventario {
 			valorTotal += (valor + vAdic);
 			valorUnitario = valorTotal / cantidad;
 
-			Movimiento m = new Movimiento(Sistema.COMPRA, vAdic, cant, valor);
+			Movimiento m = new Movimiento(Sistema.COMPRA, vAdic, cant, valor,f);
 			movimientos.add(m);
 
 			return true;
@@ -51,7 +51,7 @@ public class Inventario {
 		return false;
 	}
 
-	public boolean devCompra(int c, int id) {
+	public boolean devCompra(int c, int id,String f) {
 
 		if (movimientos.get(id).getCantidad() < c) {
 
@@ -75,14 +75,14 @@ public class Inventario {
 			valorTotal -= valorSalida;
 			valorUnitario = valorTotal / cantidad;
 
-			Movimiento m = new Movimiento(Sistema.DEV_COMPRA, 0, c, cantASacar);
+			Movimiento m = new Movimiento(Sistema.DEV_COMPRA, 0, c, cantASacar,f);
 			movimientos.add(m);
 
 			return true;
 		}
 	}
 
-	public boolean devVenta(int c, int id) {
+	public boolean devVenta(int c, int id,String f) {
 
 		if (movimientos.get(id).getCantidad() < c) {
 
@@ -106,7 +106,7 @@ public class Inventario {
 			valorTotal += delta;
 			valorUnitario = valorTotal / cantidad;
 
-			Movimiento m = new Movimiento(Sistema.DEV_VENTA, 0, c, delta);
+			Movimiento m = new Movimiento(Sistema.DEV_VENTA, 0, c, delta,f);
 
 			movimientos.add(m);
 
@@ -115,7 +115,7 @@ public class Inventario {
 		}
 	}
 
-	public boolean salida(int cant) {
+	public boolean salida(int cant,String f) {
 
 		if (metodo.equals(Sistema.PP)) {
 			if (cant > cantidad) {
@@ -129,7 +129,7 @@ public class Inventario {
 				valorTotal -= valorSalida;
 				valorUnitario = valorTotal / cantidad;
 
-				Movimiento m = new Movimiento(Sistema.VENTA, 0, cant, valorSalida);
+				Movimiento m = new Movimiento(Sistema.VENTA, 0, cant, valorSalida,f);
 				movimientos.add(m);
 
 				return true;
@@ -192,7 +192,7 @@ public class Inventario {
 
 			this.valorUnitario = this.valorTotal / this.cantidad;
 
-			Movimiento m = new Movimiento(Sistema.VENTA, 0, aux, valorSalida);
+			Movimiento m = new Movimiento(Sistema.VENTA, 0, aux, valorSalida,f);
 			movimientos.add(m);
 
 			return true;

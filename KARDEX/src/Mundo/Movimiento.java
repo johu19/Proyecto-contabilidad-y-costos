@@ -8,9 +8,9 @@ public class Movimiento {
 	private double valorAdicional;
 	private double valorUnitario;
 	private int cantidad;
-	
-	public Movimiento(String tipo, double vAdic, int cantidad, double vtotS) {
-		
+	private String fecha;
+	public Movimiento(String tipo, double vAdic, int cantidad, double vtotS, String fecha) {
+		this.fecha = fecha;
 		this.tipo = tipo;
 		this.cantidad = cantidad;
 		valorTotalSinAdiciones = vtotS;
@@ -65,6 +65,14 @@ public class Movimiento {
 
 	public void setValorAdicional(double valorAdicional) {
 		this.valorAdicional = valorAdicional;
+	}
+
+	public String getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
 	}
 	
 	

@@ -27,8 +27,8 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 	private JLabel lblCantValor,lblValorTotValor, lblValorUniValor;
 	private JComboBox tipoMov;
 	private JPanel valoresActuales;
-	private JLabel lblCantidad, lblValorTotal, lblTipoMovimiento, lblIdMovimiento,lblValoresAdicionales;
-	private TextField txtCantidad,txtValorTotal,txtId,txtValoresAdicionales;
+	private JLabel lblCantidad, lblValorTotal, lblTipoMovimiento, lblIdMovimiento,lblValoresAdicionales,lblFecha;
+	private TextField txtCantidad,txtValorTotal,txtId,txtValoresAdicionales,txtFecha;
 	private JButton agregarMov;
 	private JPanel vActualesPanel;
 	private ArrayList<JPanel> valoresActualesList;
@@ -95,6 +95,11 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 
 		// TERMINA PANEL INV ACTUAL
 
+		lblFecha = new JLabel("  Fecha movimiento:  ");
+		txtFecha = new TextField();
+		txtFecha.setBackground(Color.white);
+		txtFecha.setForeground(Color.red);
+	    
 
 		lblCantidad = new JLabel("  Unidades movimiento:  ");
 		lblValorTotal = new JLabel("  Valor total movimiento:  ");
@@ -173,7 +178,9 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 		p.setLayout(new BorderLayout());
 
 		JPanel p1 = new JPanel();
-		p1.setLayout(new GridLayout(5,2));
+		p1.setLayout(new GridLayout(6,2));
+		p1.add(lblFecha);
+		p1.add(txtFecha);
 		p1.add(lblCantidad);
 		p1.add(txtCantidad);
 		p1.add(lblValorTotal);
@@ -250,23 +257,25 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 					int c = Integer.parseInt(txtCantidad.getText());
 					double v = Double.parseDouble(txtValorTotal.getText());
 					double ad = Double.parseDouble(txtValoresAdicionales.getText());
+					String f = txtFecha.getText();
 					if(c<0||v<0) {
 						JOptionPane.showMessageDialog(this, "Valores no pueden ser negativos");
 					}else {
 						
-						ventana.entrada(c, v,ad);
+						ventana.entrada(c, v,ad,f);
 						actualizarInventarioActual();
 						
 					}
 					
 				}else if(tipoMov.getSelectedItem().equals(Sistema.VENTA)) {
 					int c = Integer.parseInt(txtCantidad.getText());
+					String f = txtFecha.getText();
 					
 					if(c<0) {
 						JOptionPane.showMessageDialog(this, "Valores no pueden ser negativos");
 					}else {
 						
-						ventana.salida(c);
+						ventana.salida(c,f);
 						actualizarInventarioActual();
 					}
 				}else if(tipoMov.getSelectedItem().equals(Sistema.DEV_COMPRA)){
@@ -274,11 +283,12 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 					int c = Integer.parseInt(txtCantidad.getText());
 //					double v = Double.parseDouble(txtValorTotal.getText());
 					int id = Integer.parseInt(txtId.getText());
+					String f = txtFecha.getText();
 					if(c<0||id<0) {
 						JOptionPane.showMessageDialog(this, "Valores no pueden ser negativos");
 					}else {
 						
-						ventana.devCompra(c,id);
+						ventana.devCompra(c,id,f);
 						actualizarInventarioActual();
 						
 					}
@@ -288,11 +298,12 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 					int c = Integer.parseInt(txtCantidad.getText());
 //					double v = Double.parseDouble(txtValorTotal.getText());
 					int id = Integer.parseInt(txtId.getText());
+					String f = txtFecha.getText();
 					if(c<0||id<0) {
 						JOptionPane.showMessageDialog(this, "Valores no pueden ser negativos");
 					}else {
 						
-						ventana.devVenta(c, id);
+						ventana.devVenta(c, id,f);
 						actualizarInventarioActual();
 						
 					}

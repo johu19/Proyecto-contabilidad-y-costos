@@ -22,8 +22,8 @@ public class PanelInicial extends JPanel implements ActionListener {
 
 	private VentanaPrincipal ventana;
 	private JButton btn;
-	private JLabel lblCant, lblValor, lblMetodo;
-	private TextField txtValor, txtCant;
+	private JLabel lblCant, lblValor, lblMetodo,lblFecha,lblNombre;
+	private TextField txtValor, txtCant,txtFecha,txtNombre;
 	private JComboBox combo;
 
 	public PanelInicial(VentanaPrincipal v) {
@@ -42,9 +42,13 @@ public class PanelInicial extends JPanel implements ActionListener {
 		lblCant = new JLabel("  Unidades inventario inicial:  ");
 		lblValor = new JLabel("  Valor ($) total inventario inicial:  ");
 		lblMetodo = new JLabel("  Metodo:  ");
+		lblFecha = new JLabel("  Fecha de inicio (dd/mm/yyyy):  ");
+		lblNombre = new JLabel("  Nombre de la empresa:  ");
 
 		txtValor = new TextField();
 		txtCant = new TextField();
+		txtFecha= new TextField();
+		txtNombre = new TextField();
 
 		combo = new JComboBox();
 		combo.addItem(new String(Sistema.PEPS));
@@ -53,11 +57,17 @@ public class PanelInicial extends JPanel implements ActionListener {
 		combo.setForeground(Color.blue);
 
 		JPanel p1 = new JPanel();
-		p1.setLayout(new GridLayout(3, 2));
+		p1.setLayout(new GridLayout(5, 2));
+		p1.add(lblNombre);
+		p1.add(txtNombre);
 		p1.add(lblCant);
 		p1.add(txtCant);
 		p1.add(lblValor);
 		p1.add(txtValor);
+		p1.add(lblFecha);
+		p1.add(txtFecha);
+		
+		
 		p1.add(lblMetodo);
 		p1.add(combo);
 
@@ -90,7 +100,9 @@ public class PanelInicial extends JPanel implements ActionListener {
 				} else {
 
 					String m = combo.getSelectedItem() + "";
-					ventana.iniciar(c, v, m);
+					String f = txtFecha.getText();
+					String n = txtNombre.getText();
+					ventana.iniciar(c, v, m,f,n);
 				}
 
 			} catch (Exception ex) {

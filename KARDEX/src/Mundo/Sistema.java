@@ -11,17 +11,20 @@ public class Sistema {
 	public final static String PP = "Metodo promedio ponderado";
 
 	private Inventario invActual;
+	
+	private String nombreEmpresa;
 
-	public Sistema(int cantidadInicial, double valorTotalInicial, String metodo) {
-		invActual = new Inventario(cantidadInicial, valorTotalInicial, metodo);
+	public Sistema(int cantidadInicial, double valorTotalInicial, String metodo,String f,String n) {
+		invActual = new Inventario(cantidadInicial, valorTotalInicial, metodo,f);
+		nombreEmpresa = n;
 	}
 
-	public boolean entrada(int c, double v,double ad) {
-		return invActual.entrada(c, v,ad);
+	public boolean entrada(int c, double v,double ad,String f) {
+		return invActual.entrada(c, v,ad,f);
 	}
 	
-	public boolean salida(int c) {
-		return invActual.salida(c);
+	public boolean salida(int c,String f) {
+		return invActual.salida(c,f);
 	}
 
 	public Inventario getInvActual() {
@@ -32,12 +35,20 @@ public class Sistema {
 		this.invActual = invActual;
 	}
 
-	public boolean devVenta(int c,int id) {
-		return invActual.devVenta(c,id);
+	public boolean devVenta(int c,int id,String f) {
+		return invActual.devVenta(c,id,f);
 	}
 
-	public boolean devCompra(int c, int id) {
-		return invActual.devCompra(c,id);
+	public boolean devCompra(int c, int id,String f) {
+		return invActual.devCompra(c,id,f);
+	}
+
+	public String getNombreEmpresa() {
+		return nombreEmpresa;
+	}
+
+	public void setNombreEmpresa(String nombreEmpresa) {
+		this.nombreEmpresa = nombreEmpresa;
 	}
 
 
