@@ -62,6 +62,42 @@ public class VentanaPrincipal extends JFrame {
 		pack();
 
 	}
+	
+	
+	public static String darFormato(String m) {
+		
+		char[] array = m.toCharArray();
+		
+		String formato = "";
+		int contador =0;
+		
+		for(int i=array.length-1;i>=0;i--) {
+			
+			contador++;
+			
+			if(contador==3) {
+				
+				if(i>0) {
+					formato = "." + array[i] + formato;
+					contador =0;
+				}else {
+					formato = array[i] + formato;
+				}
+				
+			}else {
+			
+				formato = array[i] + formato;
+				
+			}
+			
+			
+			
+		}
+		
+		return formato;
+		
+	}
+	
 
 	public void iniciar(int cant, double val, String met,String f,String n) {
 
@@ -228,7 +264,7 @@ public class VentanaPrincipal extends JFrame {
 			//DecimalFormat format = new DecimalFormat("#.00");
 			//format.format(vu);
 			
-			String[] row = { id,fecha, t,cant+"", "$ "+String.format("%.2f",vu), "$ "+vt };
+			String[] row = { id,fecha, t,darFormato(cant+""), "$ "+String.format("%.2f",vu), "$ "+darFormato(vt+"") };
 			df.addRow(row);
 			table.setModel(df);
 		} catch (Exception e) {

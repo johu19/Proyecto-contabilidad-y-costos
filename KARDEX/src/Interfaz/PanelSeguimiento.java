@@ -55,8 +55,9 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 		
 		JLabel lblMetodo = new JLabel("  Metodo:  ");
 
-		this.lblCantValor = new JLabel(can);
-		this.lblValorTotValor = new JLabel("$ "+ vT.toString());
+		this.lblCantValor = new JLabel(VentanaPrincipal.darFormato(can));
+		
+		this.lblValorTotValor = new JLabel("$ "+ VentanaPrincipal.darFormato(vT));
 		
 		this.lblValorUniValor = new JLabel("$ "+vU);
 		JLabel lblMetodoValor = new JLabel(met);
@@ -326,11 +327,11 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 //		ventana.agregarFila(id,t,vu,vt);
 		
 		
-		lblCantValor.setText(ventana.getSistema().getInvActual().getCantidad()+"");
+		lblCantValor.setText(VentanaPrincipal.darFormato(ventana.getSistema().getInvActual().getCantidad()+""));
 		
 		int v =(int) ventana.getSistema().getInvActual().getValorTotal();
 		
-		lblValorTotValor.setText("$ "+v+"");
+		lblValorTotValor.setText("$ "+VentanaPrincipal.darFormato(v+""));
 		
 		
 		lblValorUniValor.setText("$ "+ String.format("%.2f",ventana.getSistema().getInvActual().getValorUnitario()));
