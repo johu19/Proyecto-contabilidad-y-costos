@@ -42,7 +42,7 @@ public class VentanaPrincipal extends JFrame {
 		setTitle("KARDEX");
 		JPanel p = new JPanel();
 //		Color c = new Color(240, 229, 70);
-		p.setBackground(Color.white);
+		p.setBackground(Color.black);
 		p.setForeground(Color.white);
 		JLabel lbl = new JLabel();
 		ImageIcon icon = new ImageIcon(RUTA);
