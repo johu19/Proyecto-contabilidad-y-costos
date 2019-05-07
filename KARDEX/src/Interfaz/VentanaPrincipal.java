@@ -70,7 +70,7 @@ public class VentanaPrincipal extends JFrame {
 		remove(panelInicial);
 		int v = (int) sistema.getInvActual().getValorTotal();
 		panelSeguimiento = new PanelSeguimiento(this, sistema.getInvActual().getCantidad() + "", v + "",
-				sistema.getInvActual().getValorUnitario() + "", sistema.getInvActual().getMetodo() + "");
+				String.format("%.2f",sistema.getInvActual().getValorUnitario()), sistema.getInvActual().getMetodo() + "");
 		add(panelSeguimiento, BorderLayout.CENTER);
 
 		String[] columns = { "              ID","         Fecha", "         Tipo","      Cantidad", "     Valor Unitario", "    Valor Total" };
@@ -177,7 +177,6 @@ public class VentanaPrincipal extends JFrame {
 			agregarFila(f,Id+"",t,vu,vt,c);
 			
 		}
-
 	}
 
 	public void devCompra(int c, int id,String f) {
@@ -225,15 +224,16 @@ public class VentanaPrincipal extends JFrame {
 		}
 		
 		try {
-			DecimalFormat format = new DecimalFormat("#.00");
-			format.format(vu);
+
+			//DecimalFormat format = new DecimalFormat("#.00");
+			//format.format(vu);
 			
-			String[] row = { id,fecha, t,cant+"", "" + vu, "" + vt };
+			String[] row = { id,fecha, t,cant+"", "$ "+String.format("%.2f",vu), "$ "+vt };
 			df.addRow(row);
 			table.setModel(df);
 		} catch (Exception e) {
             
-			String[] row = { id,fecha, t,cant+"", "" + vu, "" + vt };
+			String[] row = { id,fecha, t,cant+"", "$ "+String.format("%.2f",vu), "$ "+vt };
 			df.addRow(row);
 			table.setModel(df);
 			

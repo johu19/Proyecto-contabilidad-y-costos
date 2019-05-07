@@ -30,22 +30,16 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 	private JLabel lblCantidad, lblValorTotal, lblTipoMovimiento, lblIdMovimiento,lblValoresAdicionales,lblFecha;
 	private TextField txtCantidad,txtValorTotal,txtId,txtValoresAdicionales,txtFecha;
 	private JButton agregarMov;
-	private JPanel vActualesPanel;
-	private ArrayList<JPanel> valoresActualesList;
-	private JScrollPane scroll;
-	
+
+
 	public PanelSeguimiento(VentanaPrincipal v, String can, String vT, String vU, String met) {
-		
+
 		setBorder(new TitledBorder("Seguimiento: "));
 		setBackground(Color.white);
 		setForeground(Color.white);
 		setSize(350,140);
 
 		ventana = v;
-
-		valoresActualesList = new ArrayList<>();
-		scroll = new JScrollPane();
-		//scroll.setSize(this.getWidth()+3,this.getHeight()+3);
 
 		//EMPIEZA PANEL INV ACTUAL
 
@@ -339,7 +333,7 @@ public class PanelSeguimiento extends JPanel implements ActionListener {
 		lblValorTotValor.setText("$ "+v+"");
 		
 		
-		lblValorUniValor.setText("$ "+ventana.getSistema().getInvActual().getValorUnitario()+"");
+		lblValorUniValor.setText("$ "+ String.format("%.2f",ventana.getSistema().getInvActual().getValorUnitario()));
 		
 		
 	}
